@@ -3,7 +3,7 @@ import os.path
 def checkInput(string):
 
     commandValueError = string[0] != "ccwc"
-    optionValueError = string[1] != "-c" and string[1] != "-l" and string[1] != "-w" and string[1] != string[-1]
+    optionValueError = string[1] != "-c" and string[1] != "-l" and string[1] != "-w" and string[1] != "-m" and string[1] != string[-1]
     readFileError = not os.path.isfile(string[-1])
     if(commandValueError):
         print("Wrong input try again")
@@ -17,18 +17,33 @@ def checkInput(string):
         
 
 def checkArgument(string):
+    
+    fileName = string[-1]
+    fileSize = (os.path.getsize( fileName))
+    
+    
+    with(open(fileName, "r") as f):
+        numOfWords = 0
+        numOfCharacters = 0
+        lines = f.readlines()
+        numOfLines = len(lines)
+        for line in lines:
+            words = line.split()
+            numOfWords += len(words)
+            numOfCharacters += sum(len(word) for word in words)
+        
+        f.close() 
+
     match string[1]:
         case "-c":
-            print(f'{(os.path.getsize( string[-1]))} {string[-1]}')
+            print(f'{fileSize} {fileName}')
         case "-l":
-            
-            with(open(string[-1], "r") as f):
-                print(f"{len(f.readlines())} {string[-1]}")
-                f.close()
+            print(f"{numOfLines} {fileName}")      
         case "-w":
-            with(open(string[-1], "r") as f):
-                print(f"{len(f.readlines())} {string[-1]}")
-                f.close()
+            print(f"{numOfWords} {fileName}")
+        case "-m":
+            print(f"{numOfCharacters} {fileName}")
+                
             
 
 def main():
