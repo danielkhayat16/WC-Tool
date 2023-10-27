@@ -43,6 +43,8 @@ def checkArgument(string):
             print(f"{numOfWords} {fileName}")
         case "-m":
             print(f"{numOfCharacters} {fileName}")
+        case fileName:
+            print(f'{fileSize} {numOfLines} {numOfWords} {fileName}')
                 
             
 
